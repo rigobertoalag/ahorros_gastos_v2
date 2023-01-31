@@ -1,9 +1,15 @@
-import { Text } from 'native-base'
+import { Box, Heading } from 'native-base'
 import React from 'react'
+import OutPutsForm from './OutPutsForm'
 
-const OutPuts = () => {
+const OutPuts = ({ navigation }) => {
   return (
-    <Text>OutPuts</Text>
+    <Box flex={1} bg="#fff">
+      <Box mt={2}>
+        <Heading ml={4} size="xl">Ingresar gasto</Heading>
+        <OutPutsForm navigation={navigation} />
+      </Box>
+    </Box>
   )
 }
 

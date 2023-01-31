@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
   Button,
   Center,
@@ -7,18 +8,17 @@ import {
   TextArea,
 } from "native-base";
 import React, { useState } from "react";
-import axios from "axios";
 
-const EntriesForm = ({ navigation }) => {
+const OutPutsForm = ({ navigation }) => {
   const [amount, setAmount] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
-  const onSendEntri = async () => {
+  const onSendOutPut = async () => {
     if (amount && title && description) {
       try {
         const response = await axios.post(
-          `https://apex.oracle.com/pls/apex/ahorros_gastos_api/ag/ahorros/?ah_title=${title}&ah_description=${description}&ah_amount=${amount}`
+          `https://apex.oracle.com/pls/apex/ahorros_gastos_api/ag/gastos/?gs_amount=${amount}&gs_title=${title}&gs_description=${description}`
         );
         if (response.status === 200) {
           navigation.navigate("Home");
@@ -37,7 +37,7 @@ const EntriesForm = ({ navigation }) => {
     <Center>
       <FormControl>
         <Stack mx="4" my="4">
-          <FormControl.Label>Dinero a ingresar</FormControl.Label>
+          <FormControl.Label>Ingresa el gasto</FormControl.Label>
           <Input
             type="text"
             placeholder="$0.00"
@@ -46,25 +46,25 @@ const EntriesForm = ({ navigation }) => {
             onChangeText={(amount) => setAmount(amount)}
           />
 
-          <FormControl.Label>Concepto de ahorro</FormControl.Label>
+          <FormControl.Label>Concepto del gasto</FormControl.Label>
           <Input
             type="text"
-            placeholder="Ahorro mensual"
+            placeholder="Gasto de comida"
             value={title}
             onChangeText={(title) => setTitle(title)}
           />
 
-          <FormControl.Label>Descripcion del ahorro</FormControl.Label>
+          <FormControl.Label>Descripcion del gasto</FormControl.Label>
           <TextArea
             h={20}
             value={description}
-            placeholder="Text Area Placeholder"
+            placeholder="Comida del dia"
             onChangeText={(description) => setDescription(description)}
           />
         </Stack>
       </FormControl>
       <Button
-        onPress={() => onSendEntri()}
+        onPress={() => onSendOutPut()}
         isDisabled={
           amount === "" || title === "" || description === "" ? true : false
         }
@@ -75,4 +75,4 @@ const EntriesForm = ({ navigation }) => {
   );
 };
 
-export default EntriesForm;
+export default OutPutsForm;
